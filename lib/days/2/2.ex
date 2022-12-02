@@ -4,7 +4,7 @@ defmodule Day2 do
   defp input() do
     Aoc2022.input(2)
     |> Enum.filter(&(&1 !== ""))
-    |> Enum.map(&(String.split(&1, " "))) 
+    |> Enum.map(&String.split(&1, " "))
   end
 
   def part_1() do
@@ -40,5 +40,4 @@ defmodule Day2 do
     end)
     |> Enum.sum()
   end
-
 end

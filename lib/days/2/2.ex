@@ -9,54 +9,35 @@ defmodule Day2 do
 
   def part_1() do
     input()
-    |> Enum.map(&(Enum.map(&1,
-    fn input ->
-      case input do
-        a when a === "A" or a === "X" -> :rock
-        a when a === "B" or a === "Y" -> :paper
-        a when a === "C" or a === "Z" -> :scissors
-        _ -> :other
-      end
-    end)))
-    |> Enum.map(&Enum.map(&1, fn input -> @points[input]end))
-    |> Enum.map(fn input ->
-      case input do
-        [a, b] when a === b -> Enum.at(input, 1) + @points[:draw]
-        [a, b] when a === b - 1 or (a === 3 and b === 1) -> Enum.at(input, 1) + @points[:win]
-        _ -> Enum.at(input, 1)
-      end
+    |> Enum.map(fn
+      ["A", "X"] -> @points[:rock] + @points[:draw]
+      ["A", "Y"] -> @points[:paper] + @points[:win]
+      ["A", "Z"] -> @points[:scissors]
+      ["B", "X"] -> @points[:rock]
+      ["B", "Y"] -> @points[:paper] + @points[:draw]
+      ["B", "Z"] -> @points[:scissors] + @points[:win]
+      ["C", "X"] -> @points[:rock] + @points[:win]
+      ["C", "Y"] -> @points[:paper]
+      ["C", "Z"] -> @points[:scissors] + @points[:draw]
+      _ -> :error
     end)
     |> Enum.sum()
   end
 
-  def part_2() do # this is ugly :P
+  def part_2() do
     input()
-    |> Enum.map(&(Enum.map(&1,
-    fn input ->
-      case input do
-        a when a === "A" -> :rock
-        a when a === "B" -> :paper
-        a when a === "C" -> :scissors
-        a when a === "X" -> :lose
-        a when a === "Y" -> :draw
-        a when a === "Z" -> :win
-        _ -> :other
-      end
-    end)))
-    |> Enum.map(
-    fn input ->
-      case input do
-        [a, b] when b === :draw -> [a, :draw]
-        [a, b] when b === :lose and a === :rock -> [:scissors, :lose]
-        [a, b] when b === :lose and a === :paper -> [:rock, :lose]
-        [a, b] when b === :lose and a === :scissors -> [:paper, :lose]
-        [a, b] when b === :win and a === :rock -> [:paper, :win]
-        [a, b] when b === :win and a === :paper -> [:scissors, :win]
-        [a, b] when b === :win and a === :scissors -> [:rock, :win]
-        _ -> :other
-      end
+    |> Enum.map(fn
+      ["A", "X"] -> @points[:scissors]
+      ["A", "Y"] -> @points[:rock] + @points[:draw]
+      ["A", "Z"] -> @points[:paper] + @points[:win]
+      ["B", "X"] -> @points[:rock]
+      ["B", "Y"] -> @points[:paper] + @points[:draw]
+      ["B", "Z"] -> @points[:scissors] + @points[:win]
+      ["C", "X"] -> @points[:paper]
+      ["C", "Y"] -> @points[:scissors] + @points[:draw]
+      ["C", "Z"] -> @points[:rock] + @points[:win]
+      _ -> :error
     end)
-    |> Enum.map(&Enum.sum(Enum.map(&1, fn input -> @points[input]end)))
     |> Enum.sum()
   end
 

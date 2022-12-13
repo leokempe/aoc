@@ -2,9 +2,9 @@
 
 class Aoc2022
 {
-    static public void Main(String[] args)
+    public static void Main(string[] args)
     {
-        if (args.Length < 2 || !Int32.TryParse(args[0], out int date) || !Int32.TryParse(args[1], out int part))
+        if (args.Length < 2 || !int.TryParse(args[0], out var date) || !int.TryParse(args[1], out var part))
             return;
 
         switch ((date, part))
@@ -17,17 +17,21 @@ class Aoc2022
                 Day9.Part2();
                 break;
 
+            case (10, 1):
+                Day10.Part1();
+                break;
+
             default:
                 break;
         }
     }
 
-    static public String[] ReadExampleInput(int date)
+    public static string[] ReadExampleInput(int date)
     {
         return File.ReadAllLines(Path.Join(Environment.CurrentDirectory, $@"days\{date}\example_input.txt"));
     }
 
-    static public String[] ReadInput(int date)
+    public static string[] ReadInput(int date)
     {
         return File.ReadAllLines(Path.Join(Environment.CurrentDirectory, $@"days\{date}\input.txt"));
     }

@@ -7,20 +7,20 @@ class Day9
     {
         var input = Aoc2022.ReadInput(9);
 
-        int _headX = 0;
-        int _headY = 0;
-        int _tailX = 0;
-        int _tailY = 0;
+        var _headX = 0;
+        var _headY = 0;
+        var _tailX = 0;
+        var _tailY = 0;
 
         List<Tuple<int, int>> _tailCoords = new() { Tuple.Create(0, 0) }; 
 
-        foreach (string line in input)
+        foreach (var line in input)
         {
             var splitLine = line.Split(' ');
             var direction = splitLine[0].ToCharArray()[0];
-            var steps = Int32.Parse(splitLine[1]);
+            var steps = int.Parse(splitLine[1]);
 
-            for (int i = 0; i < steps; i++)
+            for (var i = 0; i < steps; i++)
             {
                 switch (direction)
                 {
@@ -66,18 +66,18 @@ class Day9
     {
         var input = Aoc2022.ReadInput(9);
 
-        int[] _currXCoords = new int[10];
-        int[] _currYCoords = new int[10];
+        var _currXCoords = new int[10];
+        var _currYCoords = new int[10];
 
         List<Tuple<int, int>> _tailCoords = new() { Tuple.Create(0, 0) };
 
-        foreach (string line in input)
+        foreach (var line in input)
         {
             var splitLine = line.Split(' ');
             var direction = splitLine[0].ToCharArray()[0];
-            var steps = Int32.Parse(splitLine[1]);
+            var steps = int.Parse(splitLine[1]);
 
-            for (int i = 0; i < steps; i++)
+            for (var i = 0; i < steps; i++)
             {
                 switch (direction)
                 {
@@ -98,24 +98,23 @@ class Day9
                         break;
                 }
 
-                for (int j = 1; j < 10; j++)
+                for (var j = 1; j < 10; j++)
                 {
-                    if (Math.Abs(_currXCoords[j - 1] - _currXCoords[j]) > 1 ||
-                        Math.Abs(_currYCoords[j - 1] - _currYCoords[j]) > 1)
-                    {
-                        if (_currXCoords[j - 1] > _currXCoords[j])
-                            _currXCoords[j] += 1;
-                        else if (_currXCoords[j - 1] < _currXCoords[j])
-                            _currXCoords[j] -= 1;
+                    if (Math.Abs(_currXCoords[j - 1] - _currXCoords[j]) <= 1 &&
+                        Math.Abs(_currYCoords[j - 1] - _currYCoords[j]) <= 1) continue;
 
-                        if (_currYCoords[j - 1] > _currYCoords[j])
-                            _currYCoords[j] += 1;
-                        else if (_currYCoords[j - 1] < _currYCoords[j])
-                            _currYCoords[j] -= 1;
+                    if (_currXCoords[j - 1] > _currXCoords[j])
+                        _currXCoords[j] += 1;
+                    else if (_currXCoords[j - 1] < _currXCoords[j])
+                        _currXCoords[j] -= 1;
 
-                        if (j == 9) 
-                            _tailCoords.Add(Tuple.Create(_currXCoords[j], _currYCoords[j]));
-                    }
+                    if (_currYCoords[j - 1] > _currYCoords[j])
+                        _currYCoords[j] += 1;
+                    else if (_currYCoords[j - 1] < _currYCoords[j])
+                        _currYCoords[j] -= 1;
+
+                    if (j == 9) 
+                        _tailCoords.Add(Tuple.Create(_currXCoords[j], _currYCoords[j]));
                 }
             }
         }

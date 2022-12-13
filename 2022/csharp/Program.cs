@@ -21,6 +21,10 @@ class Aoc2022
                 Day10.Part1();
                 break;
 
+            case (10, 2):
+                Day10.Part2();
+                break;
+
             default:
                 break;
         }
